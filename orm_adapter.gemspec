@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.name = "orm_adapter"
   s.version = OrmAdapter::VERSION.dup
   s.platform = Gem::Platform::RUBY
-  s.authors = ["Ian White", "Jose Valim"]
+  s.authors = ["Ian White", "Jose Valim", "Daniël W. Crompton"]
   s.description = "Provides a single point of entry for using basic features of ruby ORMs"
   s.summary = "orm_adapter provides a single point of entry for using basic features of popular ruby ORMs.  Its target audience is gem authors who want to support many ruby ORMs."
   s.email = "ian.w.white@gmail.com"
