@@ -19,14 +19,15 @@ module Ripple
 
       # @see OrmAdapter::Base#get
       def get(id)
-        klass.first({ :id => wrap_key(id) })
+        #klass.first({ :key => wrap_key(id) })
+        klass.find(wrap_key(id))
       end
 
       # @see OrmAdapter::Base#find_first
       def find_first(conditions = {})
         conditions, order = extract_conditions!(conditions)
         conditions = conditions.merge(:sort => order) unless order.nil?
-        klass.first(conditions_to_fields(conditions))
+        klass.first#(conditions_to_fields(conditions))
       end
 
       # @see OrmAdapter::Base#find_all
