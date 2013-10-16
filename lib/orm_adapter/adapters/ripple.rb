@@ -27,7 +27,9 @@ module Ripple
       def find_first(conditions = {})
         conditions, order = extract_conditions!(conditions)
         conditions = conditions.merge(:sort => order) unless order.nil?
-        klass.first#(conditions_to_fields(conditions))
+        #klass.first(conditions_to_fields(conditions))
+        keys = klass.find(conditions_to_keys(conditions))
+        keys[0] unless keys.empty?
       end
 
       # @see OrmAdapter::Base#find_all
@@ -49,7 +51,18 @@ module Ripple
         object.destroy if valid_object?(object)
       end
 
-    protected
+      protected
+
+      def conditions_to_keys(conditions)
+        keys = []
+        conditions.inject([]) do |fields, (key, value)|
+          if value.is_a?(Ripple::Document) && klass.key?("#{key}_id")
+            return [(Digest::MD5.hexdigest value.id)]
+          else
+            return [(Digest::MD5.hexdigest value)]
+          end
+        end
+      end
 
       # converts and documents to ids
       def conditions_to_fields(conditions)
